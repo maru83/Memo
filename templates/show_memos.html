@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memo App - Memo List</title>
+    <title>ホーム</title>
 </head>
 <body>
-    <h1>Memo List</h1>
+    <h1>メモ一覧</h1>
     <ul>
         {% for memo in memos %}
             <li>
                 <a href="{{ url_for('show_memo', memo_id=memo[0]) }}">{{ memo[1] }}</a>
-                <a href="{{ url_for('delete_memo', memo_id=memo[0]) }}">[Delete]</a>
+                <a href="{{ url_for('delete_memo', memo_id=memo[0]) }}">　[Delete]</a>
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ url_for('add_memo') }}">Add Memo</a>
+    <a href="{{ url_for('add_memo') }}">メモを追加</a>
 </body>
 </html>
 

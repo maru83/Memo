@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import pyttsx3
+import os
+
 
 app = Flask(__name__)
+engine = pyttsx3.init()
+
 
 # データベースへの接続
 def connect_db():
@@ -33,7 +38,20 @@ def show_memo(memo_id):
     cur = db.execute('SELECT id, title, content FROM memo WHERE id = ?', [memo_id])
     memo = cur.fetchone()
     db.close()
+
+    # 音声ファイルを static フォルダに保存
+    audio_file_path = os.path.join('static', 'output.mp3')
+    read_aloud(memo[2], audio_file_path)
+
     return render_template('show_memo.html', memo=memo)
+
+def read_aloud(text, output_file_path):
+    # 読み上げ速度
+    engine.setProperty('rate', 130) 
+    
+    # テキストを音声に変換して保存
+    engine.save_to_file(text, output_file_path)
+    engine.runAndWait()
 
 # メモを追加
 @app.route('/add_memo', methods=['GET', 'POST'])
@@ -57,5 +75,7 @@ def delete_memo(memo_id):
     db.close()
     return redirect(url_for('show_memos'))
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
