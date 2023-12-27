@@ -7,15 +7,15 @@
 </head>
 <body>
     <h1>メモ一覧</h1>
+    <a href="{{ url_for('add_memo') }}">メモを追加</a>
     <ul>
         {% for memo in memos %}
             <li>
                 <a href="{{ url_for('show_memo', memo_id=memo[0]) }}">{{ memo[1] }}</a>
-                <a href="{{ url_for('delete_memo', memo_id=memo[0]) }}">　[Delete]</a>
+                <a href="{{ url_for('delete_memo', memo_id=memo[0]) }}">[Delete]</a>
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ url_for('add_memo') }}">メモを追加</a>
 </body>
 </html>
 
